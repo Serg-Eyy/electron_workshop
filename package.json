@@ -2,8 +2,11 @@
   "name": "electron_workshop_app",
   "version": "1.0.0",
   "description": "A sample app for Electron Workshop",
-  "main": "./src/eApp/main.js",
+  "main": "src/eApp/app.js",
   "scripts": {
+    "web": "react-scripts start",
+    "start": "set NODE_ENV=dev&& nodemon --watch * --exec \"electron .\"",
+    "pack": "electron-builder --dir",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +24,7 @@
     "url": "https://github.com/Serg-Eyy/electron_workshop_app/issues"
   },
   "homepage": "https://github.com/Serg-Eyy/electron_workshop_app#readme",
-  "dependencies": {
+  "devDependencies": {
     "electron": "^4.0.4"
   }
 }
