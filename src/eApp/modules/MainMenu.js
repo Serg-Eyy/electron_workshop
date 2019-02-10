@@ -1,6 +1,10 @@
 const { app, Menu, shell } = require('electron');
 
-
+/**
+ * Create main application menu from template
+ * @type Object[]
+ * @return Electron.Menu
+ */
 const menuTemplate = [
     {
       label: 'File',
