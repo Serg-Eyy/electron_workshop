@@ -1,0 +1,27 @@
+{
+  "name": "electron_workshop_app",
+  "version": "1.0.0",
+  "description": "A sample app for Electron Workshop",
+  "main": "./src/eApp/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Serg-Eyy/electron_workshop_app.git"
+  },
+  "keywords": [
+    "Electron",
+    "Node.JS",
+    "workshop"
+  ],
+  "author": "Sergey H.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Serg-Eyy/electron_workshop_app/issues"
+  },
+  "homepage": "https://github.com/Serg-Eyy/electron_workshop_app#readme",
+  "dependencies": {
+    "electron": "^4.0.4"
+  }
+}
