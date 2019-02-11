@@ -2,7 +2,8 @@ const { Tray } = require('electron');
 
 /**
  * Create a custom system tray module by extending Electron's Tray
- * @return Electron.Tray (extended)
+ * @export Electron.Tray (extended)
+ * @see https://electronjs.org/docs/api/tray
  */
 class SystemTray extends Tray{
 

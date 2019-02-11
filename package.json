@@ -6,7 +6,10 @@
   "scripts": {
     "web": "react-scripts start",
     "start": "set NODE_ENV=dev&& nodemon --watch * --exec \"electron .\"",
+    "dev": "concurrently \"npm web run\" \" wait-on http://localhost:3000 && npm run start\"",
+    "build": "react-scripts build",
     "pack": "electron-builder --dir",
+    "dist": "PUBLIC_URL=./ react-scripts build && electron-builder --mac --linux --win -p always",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +28,13 @@
   },
   "homepage": "https://github.com/Serg-Eyy/electron_workshop_app#readme",
   "devDependencies": {
-    "electron": "^4.0.4"
+    "electron": "^4.0.4",
+    "electron-debug": "^2.1.0",
+    "electron-devtools-installer": "^2.2.4"
+  },
+  "dependencies": {
+    "electron-log": "^3.0.1",
+    "electron-updater": "^4.0.6",
+    "electron-window-state": "^5.0.3"
   }
 }

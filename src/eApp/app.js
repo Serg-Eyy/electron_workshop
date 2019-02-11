@@ -3,25 +3,50 @@ const Path = require('path');
 const MainWindow = require('./modules/MainWindow');
 const SystemTray = require('./modules/SystemTray');
 const mainMenu = require('./modules/MainMenu');
+const AutoUpdater = require('./modules/AppApdater');
+
 
 /** Some configuration **/
 
-const appIconPath = Path.join(__dirname, '/resources/img', 'appIcon@4x.png');
-const trayIconPath = Path.join(__dirname, '/resources/img', 'appIcon.png');
-const webAppURL = process.env.NODE_ENV === 'dev' ? 'http://localhost:3000': Path.join(__dirname, '../app', 'index.html');
+const appIconPath = Path.join(__dirname, '/resources/img', 'Icon_16x16.png');
+const trayIconPath = Path.join(__dirname, '/resources/img', 'Icon_16x16.png');
+let webAppURL =  Path.join(__dirname, '../app', 'index.html');
 
 const mainWindowOptions = {
     width: 800,
     height: 600,
-    icon: appIconPath
+    icon: appIconPath,
+    startMinimized: false
+
 };
+
+if (process.env.NODE_ENV === 'dev') {
+    require('electron-debug')();
+    webAppURL = 'http://localhost:3000';
+}
+
+/** Electron app **/
+
+const installExtensions = async () => {
+    const installer = require('electron-devtools-installer');
+    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+    const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+
+    return Promise.all(
+        extensions.map(name => installer.default(installer[name], forceDownload))
+    ).catch(console.log);
+};
+
 
 let mainWindow, tray;
 
 // init application upon launch
-app.on('ready',  () => appInit());
+app.on('ready',  () => {
+    if (process.env.NODE_ENV === 'dev') installExtensions().then(()=> console.log('Dev extensions installed.'));
+    appInit()
+});
 
-// On Mac OS exit application when all windows are closed
+// Explicitly exit application on macOS when all windows are closed
 app.on('window-all-closed', ()=> {
     tray.destroy();
     if (process.platform !== 'darwin') { app.quit() }
@@ -33,6 +58,7 @@ app.on('activate', () => {
     if (mainWindow === null) { appInit() } else { mainWindow.show() }
 });
 
+new AutoUpdater();
 
 // init application by starting all required modules with config parameters
 function appInit(){
